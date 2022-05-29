@@ -30,8 +30,8 @@ jobs:
       - name: Commit and Push
         run: |
           echo commit and push
-          git config --local user.email "goo.ishidao@gmail.com"
-          git config --local user.name "ishidao0910"
+          git config --local user.email ${{ secrets.EMAIL }}
+          git config --local user.name ${{ secrets.USERNAME }}
           git add . 
           git commit -m "write today's btc-jpy"
           git pull
