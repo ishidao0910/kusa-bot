@@ -3,7 +3,7 @@ name: write today's jpy-btc
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 1 * * * #JST 09:00
+    - cron: 0 1 * * * #JST 10:00
 
 jobs:
   build:
