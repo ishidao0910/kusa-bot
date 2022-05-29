@@ -2,7 +2,7 @@
 このレポジトリでは、github actionsを用いてpushを定期実行します。
 
 # Actions Flow
-- 09:00(JST) cronジョブ起動
+- 10:00(JST) cronジョブ起動
 - pythonの実行環境構築
 - pythonファイル(btc_jpy.py)実行
 - サイトスクレイピング
