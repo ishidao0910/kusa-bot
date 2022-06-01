@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import urllib.request as req
 
 d_today = datetime.date.today()
+dt_now = datetime.datetime.now()
+print("Run time: ", dt_now)
 
 
 # 通貨設定
