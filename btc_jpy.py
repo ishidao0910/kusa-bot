@@ -1,6 +1,10 @@
 import datetime
+import ssl
 from bs4 import BeautifulSoup
 import urllib.request as req
+
+# ssl certificate expiration policy
+ssl._create_default_https_context = ssl._create_unverified_context
 
 d_today = datetime.date.today()
 dt_now = datetime.datetime.now()
