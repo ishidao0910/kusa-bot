@@ -18,7 +18,7 @@ def getprice(url):
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
         },
     )
-    soup = BeautifulSoup(HTML.text, "lxml")
+    soup = BeautifulSoup(HTML.text, "html.parser")
     text = soup.find("span", attrs={"class": "pclqee"}).text.split(".")[0]
     return text
 
