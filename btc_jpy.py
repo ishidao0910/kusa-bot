@@ -25,7 +25,7 @@ current_value = ''
 res = req.urlopen(url)
 
 # 対象を抽出
-soup = BeautifulSoup(res, 'html.parser');
+soup = BeautifulSoup(res, 'html.parser')
 values = soup.select_one("#coinyep-reverse1").findAll(text=True)
 current_value = str(''.join(values))
 current_value = current_value.replace('1 ' + crypto + ' = ', '')
