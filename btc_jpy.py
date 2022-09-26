@@ -1,39 +1,45 @@
 import datetime
-import requests
+import ssl
 from bs4 import BeautifulSoup
+import urllib.request as req
 
-# 時間帯取得
+# ssl certificate expiration policy
+ssl._create_default_https_context = ssl._create_unverified_context
+
 d_today = datetime.date.today()
 dt_now = datetime.datetime.now()
 print("Run time: ", dt_now)
+
 
 # 通貨設定
 crypto = 'BTC'
 currency = 'JPY'
 
-def getprice(url):
-    HTML = requests.get(
-        url,
-        headers={
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36"
-        },
-    )
-    soup = BeautifulSoup(HTML.text, "html.parser")
-    text = soup.find("span", attrs={"class": "pclqee"}).text.split(".")[0]
-    return text
+# スクレイピングページ
+url = 'https://coinyep.com/ja/ex/' + crypto + '-' + currency
 
+# 取得結果
+current_value = ''
 
-if __name__ == "__main__":
-    url = "https://www.google.com/search?q=bitcoin+price"
-    file_path = "README.md"
+# 取得先URLにアクセス
+res = req.urlopen(url)
 
-    btc_price = getprice(url)
-    add_txt = '<br>' + str(d_today) + ' 1' + crypto + '(' + currency + '): ' + str(btc_price)
+# 対象を抽出
+soup = BeautifulSoup(res, 'html.parser');
+values = soup.select_one("#coinyep-reverse1").findAll(text=True)
+current_value = str(''.join(values))
+current_value = current_value.replace('1 ' + crypto + ' = ', '')
+current_value = current_value.replace(' ' + currency, '')
 
-    with open(file_path, "r") as file:
-        txt = file.read()
-        txt = txt + add_txt
-        print(txt)
+# 取得結果
+add_txt = '<br>' + str(d_today) + ' 1' + crypto + '(' + currency + '): ' + str(current_value)
 
-    with open(file_path, 'w') as file:
-        file.write(txt)
+file_path = "README.md"
+ 
+with open(file_path, "r") as file:
+    txt = file.read()
+    txt = txt + add_txt
+    print(txt)
+
+with open(file_path, 'w') as file:
+    file.write(txt)
